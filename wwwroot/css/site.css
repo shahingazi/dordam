@@ -22,11 +22,20 @@ body {
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
+.navbar-inverse {
+    background-color: #ffd100;
+    border-color: #ffd100;
+}
 
 /* QR code generator */
 #qrCode {
     margin: 15px;
 }
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

@@ -184,7 +184,22 @@ namespace PriceComparisonWeb.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PriceComparisonWeb.Models.EcommercePriceFile", b =>
+            modelBuilder.Entity("PriceComparisonWeb.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,39 +207,124 @@ namespace PriceComparisonWeb.Migrations
 
                     b.Property<string>("Brand");
 
-                    b.Property<string>("Bundle");
-
-                    b.Property<string>("Category");
-
-                    b.Property<string>("Colour");
-
-                    b.Property<string>("Condition");
-
                     b.Property<string>("Description");
 
                     b.Property<string>("EAN");
 
-                    b.Property<string>("Gender");
-
                     b.Property<string>("Image_URL");
 
-                    b.Property<string>("Manufacturer_Part_NumberMPN");
+                    b.Property<string>("ManufacturerPartNumberMPN");
 
-                    b.Property<double>("Price_incl_VAT");
+                    b.Property<string>("ProductName");
 
-                    b.Property<string>("Product_URL");
-
-                    b.Property<string>("Product_name");
-
-                    b.Property<double>("Shipping_cost");
-
-                    b.Property<string>("Size");
-
-                    b.Property<string>("Stock_status");
+                    b.Property<int>("SubCategoryId");
 
                     b.HasKey("Id");
 
-                    b.ToTable("EcommercePriceFile");
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.ProductStock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Bundle");
+
+                    b.Property<string>("Colour");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<double>("PriceInclVAT");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<double>("Rating");
+
+                    b.Property<double>("ShippingCost");
+
+                    b.Property<string>("Size");
+
+                    b.Property<string>("StockStatus");
+
+                    b.Property<int>("StoreId");
+
+                    b.Property<string>("URL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("ProductStocks");
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.Store", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Logo");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.SubCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategories");
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.SuperCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SuperCategories");
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.SuperCategoryMappingCategory", b =>
+                {
+                    b.Property<int>("SuperCategoryId");
+
+                    b.Property<int>("CategoryId");
+
+                    b.HasKey("SuperCategoryId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SuperCategoryMappingCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -269,6 +369,48 @@ namespace PriceComparisonWeb.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.Product", b =>
+                {
+                    b.HasOne("PriceComparisonWeb.Models.SubCategory", "SubCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.ProductStock", b =>
+                {
+                    b.HasOne("PriceComparisonWeb.Models.Product", "Product")
+                        .WithMany("ProductStocks")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PriceComparisonWeb.Models.Store", "Store")
+                        .WithMany("ProductStocks")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.SubCategory", b =>
+                {
+                    b.HasOne("PriceComparisonWeb.Models.Category", "Category")
+                        .WithMany("SubCategory")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PriceComparisonWeb.Models.SuperCategoryMappingCategory", b =>
+                {
+                    b.HasOne("PriceComparisonWeb.Models.Category", "Category")
+                        .WithMany("SuperCategoryMappingCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PriceComparisonWeb.Models.SuperCategory", "SuperCategory")
+                        .WithMany("SuperCategoryMappingCategories")
+                        .HasForeignKey("SuperCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
