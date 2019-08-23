@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/css/responsive.min.css",
+    "inputFiles": [
+      "wwwroot/css/responsive.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/ui.min.css",
+    "inputFiles": [
+      "wwwroot/css/ui.css"
+    ]
+  }
+]
