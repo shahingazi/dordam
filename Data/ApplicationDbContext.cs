@@ -19,6 +19,7 @@ namespace PriceComparisonWeb.Data
         public DbSet<ProductStock> ProductStocks { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<SuperCategoryMappingCategory> SuperCategoryMappingCategories { get; set; }
+        public DbSet<ProductTag> ProductTag { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,7 +35,5 @@ namespace PriceComparisonWeb.Data
                 .WithMany(c => c.SuperCategoryMappingCategories)
                 .HasForeignKey(bc => bc.CategoryId);
         }
-
-
     }
 }
