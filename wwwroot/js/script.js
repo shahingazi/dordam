@@ -1,10 +1,24 @@
 // some scripts
+  function getdirectory(id,name) {
+      $(document).ready(function () {
+          $.ajax({
+              datatype: "text/plain",
+              type: "POST",
+              url: 'ProductDirectory/SubDirectory/' + id,
+              cache: false,
+              success: function (data) {
+                  $('#categoryname').html(name);
+                  $('#subdir').html(data);
+              }
+          });
+      });
+    }
 
 // jquery ready start
 $(document).ready(function() {
 	// jQuery code
-
-
+   
+    getdirectory(1, 'Sound');
 
     
     /* ///////////////////////////////////////

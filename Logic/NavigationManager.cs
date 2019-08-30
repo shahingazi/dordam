@@ -19,5 +19,6 @@ namespace PriceComparisonWeb.Logic
         {
             return await _context.SuperCategories.ToListAsync();
         }
+
     }
 }
