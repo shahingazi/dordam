@@ -1,5 +1,5 @@
 // some scripts
-  function getdirectory(id,name) {
+  function getSubdirectory(id,name) {
       $(document).ready(function () {
           $.ajax({
               datatype: "text/plain",
@@ -12,13 +12,29 @@
               }
           });
       });
-    }
+}
+
+function getdirectory() {
+    $(document).ready(function () {
+        $.ajax({
+            datatype: "text/plain",
+            type: "POST",
+            url: 'ProductDirectory/Directory/',
+            cache: false,
+            success: function (data) {              
+                $('#directory').html(data);
+            }
+        });
+    });
+}
+
 
 // jquery ready start
 $(document).ready(function() {
 	// jQuery code
-   
-    getdirectory(1, 'Sound');
+
+    getdirectory();
+    getSubdirectory(1, 'Sound');
 
     
     /* ///////////////////////////////////////

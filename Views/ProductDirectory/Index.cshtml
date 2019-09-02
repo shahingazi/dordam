@@ -1,13 +1,4 @@
-﻿
-@using PriceComparisonWeb.Logic
-
-@inject NavigationManager nav
-
-@{
-    var result = nav.GetSuperCategories().Result;
-}
-
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -15,17 +6,8 @@
 <section class="section-request bg padding-y-sm">
 
     <div class="row">
-        <div class="col-lg-5-24">
-            <nav>
-                <ul class="menu-category">
-                    @foreach (var x in result)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link pl-0" href="#" onclick="getdirectory(@x.Id,'@x.Name')"> @x.Name </a>
-                        </li>
-                    }
-                </ul>
-            </nav>
+        <div class="col-lg-5-24" id="directory">
+           
         </div> <!-- col.// -->
 
         <div class="col-lg-19-24">

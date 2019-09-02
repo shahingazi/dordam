@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using PriceComparisonWeb.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PriceComparisonWeb.Logic;
 
 namespace PriceComparisonWeb
 {
@@ -46,8 +45,7 @@ namespace PriceComparisonWeb
             }
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<NavigationManager>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PriceComparisonWeb.Data;
@@ -20,6 +18,13 @@ namespace PriceComparisonWeb.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Directory()
+        {
+            var directory = _context.SuperCategories
+                .Select(x => new Directory { Id = x.Id, Name = x.Name }).ToList();
+            return PartialView("Directory", directory);
         }
 
         public IActionResult SubDirectory(int id)
