@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using PriceComparisonWeb.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using PriceComparisonWeb.Areas.Identity.Services;
 
 namespace PriceComparisonWeb
 {
@@ -45,6 +47,8 @@ namespace PriceComparisonWeb
             }
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);           
         }
 
