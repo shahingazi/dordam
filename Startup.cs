@@ -45,15 +45,17 @@ namespace PriceComparisonWeb
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
             }
-            services.AddDefaultIdentity<IdentityUser>()
+
+            services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<DefaultUserRole>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);           
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, DefaultUserRole defaultUserRole)
         {
             if (HostingEnvironment.IsDevelopment())
             {
@@ -71,6 +73,7 @@ namespace PriceComparisonWeb
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            defaultUserRole.CreateUserRoles();
 
             app.UseMvc(routes =>
             {

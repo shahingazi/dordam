@@ -8,7 +8,7 @@ using PriceComparisonWeb.Models;
 
 namespace PriceComparisonWeb.Views
 {
-    [Authorize]
+    [Authorize (Roles = "Administrator")]
     public class SuperCategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
