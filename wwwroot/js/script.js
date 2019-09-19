@@ -1,5 +1,7 @@
-// some scripts
-  function getSubdirectory(id,name) {
+
+
+function getSubdirectory(id, name) {  
+    directoryListing = [];
       $(document).ready(function () {
           $.ajax({
               datatype: "text/plain",
@@ -8,11 +10,12 @@
               cache: false,
               success: function (data) {
                   $('#categoryname').html(name);
-                  $('#subdir').html(data);
+                  $('#subdir').html(data);                 
               }
           });
       });
 }
+
 
 function getdirectory() {
     $(document).ready(function () {

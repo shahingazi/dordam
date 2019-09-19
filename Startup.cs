@@ -71,7 +71,6 @@ namespace PriceComparisonWeb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
             defaultUserRole.CreateUserRoles();
 

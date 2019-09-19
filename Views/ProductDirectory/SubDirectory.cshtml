@@ -5,12 +5,15 @@
     @foreach (var category in Model)
     {
         <div class="col-lg-4">
-            <h4>@category.Name</h4>
+            <h4>
+            
+                <a onclick="getSSDirectory(@category.Name)">@category.Name</a> 
+            </h4>
             <ul class="">
                 @foreach (var subcategory in category.Items)
                 {
                     <li>
-                        <a href=""> @subcategory.Name </a>
+                        <a href="CL/@subcategory.Id/@subcategory.Name"> @subcategory.Name </a>
                     </li>
                 }
             </ul>
