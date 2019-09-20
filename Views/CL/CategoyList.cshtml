@@ -1,23 +1,30 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "CategoyList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@model PriceComparisonWeb.ViewModel.SubDirectory
 
 <div style="display: flex; align-items: center;">
     <a href="/ProductDirectory"> <i class="material-icons"> home</i> </a>
     <i class="material-icons">  keyboard_arrow_right </i>
     <a href="../../d/@ViewBag.SupercategoryId/@ViewBag.Supercategory">@ViewBag.Supercategory </a>
     <i class="material-icons">  keyboard_arrow_right </i>
-    <a href="../../t/@ViewBag.categoryId/@ViewBag.category">@ViewBag.category </a>
-    <i class="material-icons">  keyboard_arrow_right </i>
-    @ViewBag.subcategory
+    @ViewBag.category
 </div>
 
+<div>
+    <ul>
+        @foreach (var x in Model.Items)
+        {
+            <li>
+                <a href="/CL/@x.Id/@x.Name">@x.Name</a>
+            </li>
 
+        }
 
-
-
-
+    </ul>
+</div>
 
 
